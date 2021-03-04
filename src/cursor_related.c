@@ -45,6 +45,7 @@ t_cursor	*init_cursor(t_vm *vm, int id, int mem_zone)
 	cursor->wait_cycles = -1;
 	cursor->jump = 0;
 	cursor->reg[0] = id * (-1); // re-check this after
+	cursor->is_alive = FALSE;
 	return (cursor);
 }
 

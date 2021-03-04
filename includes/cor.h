@@ -52,6 +52,7 @@ typedef struct	 		s_cursor
 	int					jump;
 	int					reg[REG_NUMBER];	// register
 	// t_gladiator		*gladiator; // not needed
+	t_boolean			is_alive;
 	struct s_cursor		*next;
 }						t_cursor;
 

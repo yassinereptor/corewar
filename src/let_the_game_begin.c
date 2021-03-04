@@ -17,9 +17,45 @@ void	exec_operation()
 
 }
 
-void	check_who_is_alive()
+void kill_cursor(t_vm *vm, t_cursor **this, t_cursor **prev)
 {
+	t_cursor *temp;
 
+	if (vm->cursors == *this)
+	{
+		vm->cursors = (*this)->next;
+		temp = vm->cursors;
+	}
+	else if (*prev)
+	{
+		(*prev)->next = (*this)->next;
+		temp = (*prev)->next;
+
+	}
+	free(*this);
+	*this = NULL;
+	*this = temp;
+	vm->cursors_counter--;
+}
+
+void	check_who_is_alive(t_vm *vm)
+{
+	t_cursor *this;
+	t_cursor *prev;
+
+	this = vm->cursors;
+	prev = NULL;
+	while (this)
+	{
+		if (!this->is_alive)
+			kill_cursor(vm, &this, &prev);
+		else
+		{
+			this->is_alive = FALSE;
+			prev = this;
+			this = this->next;
+		}
+	}
 }
 
 void loop_through_cursors(t_vm *vm)
@@ -32,11 +68,11 @@ void loop_through_cursors(t_vm *vm)
 	while (cursor)
 	{
 		// convert from hexa to int
-		adr = cursor->current_addr;//vm->colosseum[cursor->current_addr];
+		adr = vm->colosseum[cursor->current_addr];
 		if (adr && adr <= REG_NUMBER)
 		{
 			if (cursor->wait_cycles == -1)
-				cursor->wait_cycles = op_tab[op_code].cycles_to_wait;
+				cursor->wait_cycles = op_tab[adr - 1].cycles_to_wait;// opcode starts from 0
 			if (!cursor->wait_cycles)
 				exec_operation();
 			else
@@ -54,7 +90,6 @@ void	performe_check(t_vm *vm)
 	{
 		vm->cycles_last_check = vm->cycles;
 		vm->count_live_checks++;
-		check_who_is_alive();
 		if (vm->lives_counter >= NBR_LIVE || vm->count_live_checks == MAX_CHECKS)
 		{
 			vm->count_live_checks = 0;
