@@ -16,7 +16,7 @@
 void vm_init(t_vm *vm)
 {
 	ft_bzero(vm, sizeof(t_vm));
-	if (!(vm->colosseum = (uint8_t *)malloc(sizeof(uint8_t) * (MEM_SIZE + 1))))
+	if (!(vm->colosseum = (u_int8_t *)malloc(sizeof(u_int8_t) * (MEM_SIZE + 1))))
 	{
 		ft_putendl_fd("Failed to build the colosseum", 2);
 		exit(1);

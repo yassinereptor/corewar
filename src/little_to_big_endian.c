@@ -12,12 +12,12 @@
 
 # include "../includes/cor.h"
 
-uint32_t	little_to_big_endian(uint32_t x);
-uint32_t    swap_uint32(uint32_t d);
-uint32_t    other_method(uint32_t a);
+u_int32_t	little_to_big_endian(u_int32_t x);
+u_int32_t    swap_uint32(u_int32_t d);
+u_int32_t    other_method(u_int32_t a);
 
 
-uint32_t little_to_big_endian(uint32_t x)
+u_int32_t little_to_big_endian(u_int32_t x)
 {
 	return (  ((x >> 24) & 0x000000ff)
 			| ((x >> 8) & 0x0000ff00)
@@ -25,7 +25,7 @@ uint32_t little_to_big_endian(uint32_t x)
 			| ((x << 24) & 0xff000000));
 }
 
-uint32_t	swap_uint32(uint32_t d)
+u_int32_t	swap_uint32(u_int32_t d)
 {
 	return (  (d & 0x000000ff) << 24
 			| (d & 0x0000ff00) << 8
@@ -33,7 +33,7 @@ uint32_t	swap_uint32(uint32_t d)
 			| (d & 0xff000000) >> 24);
 }
 
-uint32_t    other_method(uint32_t a)
+u_int32_t    other_method(u_int32_t a)
 {
 	a = ((a & (0x0000FFFF)) << 16) | ((a & (0xFFFF0000)) >> 16);
 	a = ((a & (0x00FF00FF)) << 8) | ((a & (0xFF00FF00)) >> 8);

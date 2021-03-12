@@ -26,8 +26,8 @@ t_gladiator *get_gldtor_by_id(t_gladiator *gldtor_lst, int id)
 void		get_player(t_gladiator *gldtor, int *n_id)
 {
 	int		fd;
-	uint32_t	size;
-	uint8_t	buffer[4096];
+	u_int32_t	size;
+	u_int8_t	buffer[4096];
 
 	gldtor->id = -1;
 	if ((fd = open(gldtor->associated_file, O_RDONLY)) < 0)
@@ -42,7 +42,7 @@ void		get_player(t_gladiator *gldtor, int *n_id)
 		ft_putendl_fd(" has an Invalid header.", 2);
 		exit(1);
 	}
-	if (*(uint32_t *)buffer != little_to_big_endian(COREWAR_EXEC_MAGIC))
+	if (*(u_int32_t *)buffer != little_to_big_endian(COREWAR_EXEC_MAGIC))
 	{
 		ft_putstr_fd(gldtor->associated_file, 2);
 		ft_putendl_fd(" has an invalid magic Header.", 2);

@@ -37,14 +37,14 @@ typedef struct			s_gladiator
 	char				prog_name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 	char				exec_code[MEM_SIZE];
-	uint32_t			exec_code_size;
+	u_int32_t			exec_code_size;
 	struct s_gladiator	*next;
 }						t_gladiator;
 
 typedef struct	 		s_cursor
 {
 	int					id;
-	uint32_t			current_addr;
+	u_int32_t			current_addr;
 	t_boolean			carry;
 	int					op_code; // operation code
 	int					last_live;
@@ -72,7 +72,7 @@ extern t_op    op_tab[17];
 
 typedef struct			s_vm
 {
-	uint8_t				*colosseum;
+	u_int8_t				*colosseum;
 	t_gladiator			*gladiators;
 	t_gladiator			*tail;
 	int					nbr_of_gldtors;
@@ -90,7 +90,7 @@ typedef struct			s_vm
 
 }						t_vm;
 
-uint32_t				little_to_big_endian(unsigned int x);
+u_int32_t				little_to_big_endian(unsigned int x);
 void					vm_init(t_vm *vm);
 void					parse_args(int argc, char **argv, t_vm *vm);
 void					get_player(t_gladiator *gldtor, int *n_id);
