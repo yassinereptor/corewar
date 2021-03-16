@@ -47,16 +47,38 @@ void parse_arg_n(int *ac, int argc, char **argv, t_vm *vm)
 	exit(1);
 }
 
+int		get_non_exist_id(t_gladiator *head)
+{
+	t_gladiator *gldtor;
+	int id;
+
+	id = 1;
+	while(id <= MAX_PLAYERS)
+	{
+		gldtor = head;
+		while(gldtor)
+		{
+			if (gldtor->id == id)
+				break;
+			gldtor = gldtor->next;
+		}
+		if (!gldtor)
+			return (id);
+		id++;
+	}
+	return (-1);
+	
+}
+
 void	parse_args(int argc, char **argv, t_vm *vm)
 {
 	int			ac;
-	int			n_id;
 	char		*cor;
 	t_gladiator	*gldtor;
+	t_gladiator	*gldtor_tmp;
 
 	ac = 1;
 	vm->nbr_of_gldtors = 0;
-	n_id = -1;
 	while (ac < argc)
 	{
 		if (!ft_strcmp("-v", argv[ac]))
@@ -104,15 +126,16 @@ void	parse_args(int argc, char **argv, t_vm *vm)
 		ac++;
 	}
 	gldtor = vm->gladiators;
+	vm->last_id = 1;
 	while(gldtor)
 	{
 		if (gldtor->id > vm->nbr_of_gldtors)
 		{
-			ft_putendl_fd("Error: invalid parameters", 2);
+			ft_putendl_fd("Error: invalid id", 2);
 			exit(1);
 		}
 		if (gldtor->id == -1)
-			gldtor->id = ++vm->last_id;
+			gldtor->id = get_non_exist_id(vm->gladiators);
 		gldtor = gldtor->next;
 	}
 }

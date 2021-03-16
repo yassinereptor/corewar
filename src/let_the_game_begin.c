@@ -71,10 +71,12 @@ void loop_through_cursors(t_vm *vm)
 		adr = vm->colosseum[cursor->current_addr];
 		if (adr && adr <= REG_NUMBER)
 		{
-			if (cursor->wait_cycles == -1)
-				cursor->wait_cycles = op_tab[adr - 1].cycles_to_wait;// opcode starts from 0
 			if (!cursor->wait_cycles)
-				exec_operation();
+			{
+				cursor->wait_cycles = op_tab[adr - 1].cycles_to_wait;// opcode starts from 0
+				printf("%d %d", cursor->id, cursor->op_code);
+				// exec_operation();
+			}
 			else
 				cursor->wait_cycles--;
 		}
@@ -101,15 +103,16 @@ void	performe_check(t_vm *vm)
 
 void let_the_game_begin(t_vm *vm)
 {
-	while (++vm->cycles)
-	{
-		loop_through_cursors(vm);
-		performe_check(vm);
+	// while (++vm->cycles)
+	// {
+	// 	loop_through_cursors(vm);
+	// 	performe_check(vm);
 
-		if (vm->cycles == 100)
-		{
-			printf("100 cycles \n");
-			exit(0);
-		}
-	}
+		// if (vm->cycles == 100)
+		// {
+		// 	printf("100 cycles \n");
+		// 	exit(0);
+		// }
+	// }
+	
 }

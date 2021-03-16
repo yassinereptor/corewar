@@ -87,7 +87,6 @@ typedef struct			s_vm
 	int					cycles_last_check;
 	int					count_live_checks;
 	int					lives_counter;
-
 }						t_vm;
 
 u_int32_t				little_to_big_endian(unsigned int x);

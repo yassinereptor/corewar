@@ -61,18 +61,10 @@ int			main(int ac, char **av)
 
 	vm_init(&vm);
 	parse_args(ac, av, &vm);
-
-	t_gladiator  *gladiator;
-	gladiator = vm.gladiators;
-	while(gladiator)
-	{
-		printf("%s => %d\n", gladiator->associated_file, gladiator->id);
-		gladiator = gladiator->next;
-	}
-	// prepare_battleground(&vm);
+	prepare_battleground(&vm);
 	// print_colosseum(&vm);
 	// printf("\n");
-	// let_the_game_begin(&vm);
+	let_the_game_begin(&vm);
 
 	// t_gladiator *pl;
 	// pl = vm.gladiators;
